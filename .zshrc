@@ -1,3 +1,5 @@
+. ~/.aliases
+
 # Load version control information
 autoload -Uz vcs_info
 precmd() { vcs_info }
