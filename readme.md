@@ -2,16 +2,9 @@
 
 ## Installation
 
-### Using Git and the bootstrap script
+Let's just manually copy files... :)
 
-```bash
-git clone https://github.com/spencerlynn/dotfiles.git && cd dotfiles && ./bootstrap.sh
-```
+`common` files are for everyone, zsh or bash users.
 
-### Git-free install
-
-```bash
-cd; curl -#L https://github.com/spencerlynn/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh}
-```
-
-To update later on, just run that command again.
+If using ZSH, copy `zsh` files also.
+If using BASH, copy `bash` files also.
