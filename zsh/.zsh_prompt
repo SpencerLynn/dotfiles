@@ -9,11 +9,11 @@ git_format_status() {
         echo -n "%F{grey}$MODIFIED Modified"
     fi
 
-    UNTRACKED=$(git status --short | wc -l | sed -e 's/ //g')
-    # if (($UNTRACKED > 0)); then
-    #     (($STAGED > 0 || $MODIFIED > 0)) && echo -n " / "
-    #     echo -n "%F{grey}$UNTRACKED Untracked"
-    # fi
+    UNTRACKED=$(git status --porcelain 2>/dev/null| grep '^??' | wc -l | sed -e 's/ //g')
+    if (($UNTRACKED > 0)); then
+        (($STAGED > 0 || $MODIFIED > 0)) && echo -n " / "
+        echo -n "%F{grey}$UNTRACKED Untracked"
+    fi
 
     # If nothing has been changed, we still want to give some kind of feedback to the user
   if (($STAGED + $MODIFIED + $UNTRACKED == 0)); then
@@ -25,7 +25,7 @@ git_prompt() {
   BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/' | sed 's/^[ \t]*//;s/[ \t]*$//')
 
   if [ ! -z $BRANCH ]; then
-    echo -n "%F{green}[$BRANCH] $(git_format_status)"
+    echo -n "%F{green}($BRANCH)%F{reset} [$(git_format_status)]"
 
     if [ ! -z "" ]; then
       echo " %F{red}✗"
@@ -35,5 +35,5 @@ git_prompt() {
 
 setopt PROMPT_SUBST
 PROMPT='
-%F{208}%n%f %F{grey}[${PWD/#$HOME/~}] $(git_prompt)
-%F{244}%# %F{reset}'
+[%F{50}%n%f] %F{grey}[${PWD/#$HOME/~}] $(git_prompt)
+%F{244}~ %F{reset}'
