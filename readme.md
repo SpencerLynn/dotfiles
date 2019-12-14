@@ -1,4 +1,4 @@
-# Spencer's dotfiles.. a fork of dlannoye's.. a fork of a lot of other people's..
+# Spencer's dotfiles... Or at least some setup config for easily configuration a new machine's prompt.
 
 ## Installation
 
