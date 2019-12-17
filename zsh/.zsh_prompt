@@ -1,18 +1,19 @@
 git_format_status() {
     STAGED=$(git status --short | grep -e '^\w' | wc -l | sed 's/^[ \t]*//;s/[ \t]*$//')
     if (($STAGED > 0)); then
-        echo -n "%F{grey}$STAGED Staged"
+      echo -n "%F{grey}$STAGED Staged"
     fi
 
     MODIFIED=$(git status --short | grep -e '^ ' | wc -l | sed -e 's/ //g')
     if (($MODIFIED > 0)); then
-        echo -n "%F{grey}$MODIFIED Modified"
+      (($STAGED > 0)) && echo -n " / "
+      echo -n "%F{grey}$MODIFIED Modified"
     fi
 
     UNTRACKED=$(git status --porcelain 2>/dev/null| grep '^??' | wc -l | sed -e 's/ //g')
     if (($UNTRACKED > 0)); then
-        (($STAGED > 0 || $MODIFIED > 0)) && echo -n " / "
-        echo -n "%F{grey}$UNTRACKED Untracked"
+      (($STAGED > 0 || $MODIFIED > 0)) && echo -n " / "
+      echo -n "%F{grey}$UNTRACKED Untracked"
     fi
 
     # If nothing has been changed, we still want to give some kind of feedback to the user
