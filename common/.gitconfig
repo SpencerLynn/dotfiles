@@ -6,3 +6,4 @@
     s = status
     branch-name = "!git rev-parse --abbrev-ref HEAD"
     publish = "!git push -u origin $(git branch-name)"
+    update-branch = "!git pull origin $(git branch-name)"
